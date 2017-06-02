@@ -201,6 +201,8 @@ function EventAlert_Options_CloseAnchorFrames()
 	if EA_Anchor_Frame1 ~= nil then
 		EA_Anchor_Frame1:Hide();
 		EA_Anchor_Frame2:Hide();
+		EA_Anchor_FrameA1:Hide();
+		EA_Anchor_FrameA2:Hide();
 		EA_Anchor_Frame3:Hide();
 		EA_Anchor_Frame4:Hide();
 		EA_Anchor_Frame5:Hide();

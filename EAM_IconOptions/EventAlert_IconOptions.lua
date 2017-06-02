@@ -43,6 +43,8 @@ function EventAlert_Icon_Options_Frame_ToggleAlertFrame()
 	if EA_Anchor_Frame1:IsVisible() then
 		EA_Anchor_Frame1:Hide();
 		EA_Anchor_Frame2:Hide();
+		EA_Anchor_FrameA1:Hide();
+		EA_Anchor_FrameA2:Hide();
 		EA_Anchor_Frame3:Hide();
 		EA_Anchor_Frame4:Hide();
 		EA_Anchor_Frame5:Hide();
@@ -54,6 +56,7 @@ function EventAlert_Icon_Options_Frame_ToggleAlertFrame()
 	else
 		if (EA_Config.ShowFrame == true) then
 			EA_Anchor_Frame1:Show();
+			EA_Anchor_FrameA1:Show();
 			EventAlert_Icon_Options_Frame_PaintAlertFrame();
 		end
 
@@ -111,6 +114,12 @@ function EventAlert_Icon_Options_Frame_PaintAlertFrame()
 			EA_Anchor_Frame1:SetPoint(EA_Position.Anchor, EA_Position.xLoc, EA_Position.yLoc);
 			EA_Anchor_Frame2:ClearAllPoints();
 			EA_Anchor_Frame2:SetPoint("CENTER", EA_Anchor_Frame1, xOffset, yOffset);
+			--allan add
+			EA_Anchor_FrameA1:ClearAllPoints();
+			EA_Anchor_FrameA1:SetPoint(NextLineShowConfig.Anchor, NextLineShowConfig.xLoc, NextLineShowConfig.yLoc);
+			EA_Anchor_FrameA2:ClearAllPoints();
+			EA_Anchor_FrameA2:SetPoint("CENTER", EA_Anchor_FrameA1, xOffset, yOffset);
+			--
 			EA_Anchor_Frame3:ClearAllPoints();
 			EA_Anchor_Frame3:SetPoint("CENTER", EA_Anchor_Frame1, -1 * xOffset, yOffset);
 			EA_Anchor_Frame3:SetBackdropColor(1.0, EA_Position.RedDebuff, EA_Position.RedDebuff);
@@ -151,6 +160,8 @@ function EventAlert_Icon_Options_Frame_PaintAlertFrame()
 
 			EventAlert_Icon_Options_Frame_SetAlertFrameText(EA_Anchor_Frame1,  EA_XICON_SELF_BUFF.."(1)", true);
 			EventAlert_Icon_Options_Frame_SetAlertFrameText(EA_Anchor_Frame2,  EA_XICON_SELF_BUFF.."(2)", true);
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(EA_Anchor_FrameA1,  EA_XICON_SELF_NEXTLINEBUFF.."(1)", true);
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(EA_Anchor_FrameA2,  EA_XICON_SELF_NEXTLINEBUFF.."(2)", true);
 			EventAlert_Icon_Options_Frame_SetAlertFrameText(EA_Anchor_Frame3,  EA_XICON_SELF_SPBUFF, true);
 			EventAlert_Icon_Options_Frame_SetAlertFrameText(EA_Anchor_Frame4,  EA_XICON_SELF_DEBUFF.."(2)", true);
 			EventAlert_Icon_Options_Frame_SetAlertFrameText(EA_Anchor_Frame5,  EA_XICON_TARGET_DEBUFF.."(1)", true);
@@ -272,6 +283,13 @@ function EventAlert_Icon_Options_Frame_ResetFrame()
 		EA_Position.RedDebuff = 0.5;
 		EA_Position.GreenDebuff = 0.5;
 
+		NextLineShowConfig.Anchor = "CENTER";
+		NextLineShowConfig.relativePoint = "CENTER";
+		NextLineShowConfig.xLoc = 0;
+		NextLineShowConfig.yLoc = -320;
+		NextLineShowConfig.xOffset = -40;
+		NextLineShowConfig.yOffset = 0;
+
 		EA_Position.Tar_NewLine = true;
 		EA_Position.TarAnchor = "CENTER";
 		EA_Position.TarrelativePoint = "CENTER";
@@ -286,6 +304,10 @@ function EventAlert_Icon_Options_Frame_ResetFrame()
 		EA_Anchor_Frame1:ClearAllPoints();
 		EA_Anchor_Frame1:SetPoint(EA_Position.Anchor, EA_Position.xLoc, EA_Position.yLoc);
 		EA_Anchor_Frame1:Hide();
+
+		EA_Anchor_FrameA1:ClearAllPoints();
+		EA_Anchor_FrameA1:SetPoint(NextLineShowConfig.Anchor, NextLineShowConfig.xLoc, NextLineShowConfig.yLoc);
+		EA_Anchor_FrameA1:Hide();
 
 		EA_Icon_Options_Frame_IconXOffset:SetValue(EA_Position.xOffset);
 		EA_Icon_Options_Frame_IconYOffset:SetValue(EA_Position.yOffset);
@@ -350,6 +372,25 @@ function EventAlert_Icon_Options_Frame_Anchor_OnMouseUp()
 	-- DEFAULT_CHAT_FRAME:AddMessage("\124cffFFFF00EventAlert2\124r EA_yOfs: "..EA_yOfs);
 end
 
+-- Allan Add for nextLineShow -------
+function EventAlert_Icon_Options_Frame_AnchorA1_OnMouseDown()
+	if (EA_Config.LockFrame == true) then
+		DEFAULT_CHAT_FRAME:AddMessage("\124cffFFFF00EventAlertMod\124r: "..EA_XICON_LOCKFRAMETIP);
+	else
+		EA_Anchor_FrameA1:StartMoving();
+	end
+end
+
+function EventAlert_Icon_Options_Frame_AnchorA1_OnMouseUp()
+	EA_Anchor_FrameA1:StopMovingOrSizing();
+	local EA_point, _, EA_relativePoint, EA_xOfs, EA_yOfs = EA_Anchor_FrameA1:GetPoint();
+	NextLineShowConfig.Anchor = EA_point;
+	NextLineShowConfig.relativePoint = EA_relativePoint;
+	NextLineShowConfig.xLoc = EA_xOfs;
+	NextLineShowConfig.yLoc = EA_yOfs;
+	-- DEFAULT_CHAT_FRAME:AddMessage("\124cffFFFF00EventAlert2\124r EA_yOfs: "..EA_yOfs);
+end
+------------------------------------
 function EventAlert_Icon_Options_Frame_Anchor_OnMouseDown2()
 	if (EA_Config.LockFrame == true) then
 		DEFAULT_CHAT_FRAME:AddMessage("\124cffFFFF00EventAlertMod\124r: "..EA_XICON_LOCKFRAMETIP);

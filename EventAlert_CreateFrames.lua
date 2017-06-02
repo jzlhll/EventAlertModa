@@ -24,6 +24,8 @@ function EventAlert_CreateFrames()
 		CreateFrames_CreateAnchorFrame("EA_Anchor_Frame8", 2); -- (2) target buff
 		CreateFrames_CreateAnchorFrame("EA_Anchor_Frame9", 3); -- (3) Skill Cool-Down
 		CreateFrames_CreateAnchorFrame("EA_Anchor_Frame10", 3); -- (3) Skill Cool-Down
+		CreateFrames_CreateAnchorFrame("EA_Anchor_FrameA1", 4); -- (4) self buff nextLineShow
+		CreateFrames_CreateAnchorFrame("EA_Anchor_FrameA2", 4); -- (4) self buff nextLineShow
 	-- Self Buff/Debuff
 		EA_Anchor_Frame1:SetPoint(EA_Position.Anchor, UIParent, EA_Position.xLoc, EA_Position.yLoc);
 		EA_Anchor_Frame2:SetPoint("CENTER", EA_Anchor_Frame1, iLocOffset_X, iLocOffset_Y);
@@ -37,7 +39,10 @@ function EventAlert_CreateFrames()
 	-- Spell Cooldowns
 		EA_Anchor_Frame9:SetPoint("CENTER", EA_Anchor_Frame1, 0, 80 + iLocOffset_Y);
 		EA_Anchor_Frame10:SetPoint("CENTER", EA_Anchor_Frame9, iLocOffset_X, iLocOffset_Y);
-
+	-- Self nextLineShow buffs/debuffs
+		EA_Anchor_FrameA1:SetPoint(NextLineShowConfig.Anchor, UIParent, NextLineShowConfig.xLoc, NextLineShowConfig.yLoc);
+		EA_Anchor_FrameA2:SetPoint("CENTER", EA_Anchor_FrameA1, iLocOffset_X, iLocOffset_Y); -- follow EA_Position.xOffset yOffset
+	--
 		local EA_OptHeight = EA_Options_Frame:GetHeight();
 		EA_Icon_Options_Frame:SetHeight(EA_OptHeight);
 
@@ -113,6 +118,9 @@ function CreateFrames_CreateAnchorFrame(AnchorFrameName, typeIndex)
 		if (typeIndex == 1) then
 			eaaf:SetScript("OnMouseDown",   EventAlert_Icon_Options_Frame_Anchor_OnMouseDown);
 			eaaf:SetScript("OnMouseUp",     EventAlert_Icon_Options_Frame_Anchor_OnMouseUp);
+		elseif (typeIndex == 4) then
+			eaaf:SetScript("OnMouseDown",   EventAlert_Icon_Options_Frame_AnchorA1_OnMouseDown);
+			eaaf:SetScript("OnMouseUp",     EventAlert_Icon_Options_Frame_AnchorA1_OnMouseUp);
 		elseif (typeIndex == 2) then
 			eaaf:SetScript("OnMouseDown",   EventAlert_Icon_Options_Frame_Anchor_OnMouseDown2);
 			eaaf:SetScript("OnMouseUp",     EventAlert_Icon_Options_Frame_Anchor_OnMouseUp2);
@@ -529,7 +537,7 @@ function CreateFrames_CfgBtn_SaveSpellCondition(self)
 
 	SC_Self = EA_SpellCondition_Frame_Self:GetChecked()
 	Chk_nextLineShow = EA_SpellCondition_Frame_nextLineShow:GetChecked()
-
+	
 	--CHKBOX 的勾選資訊回傳函數 GetChecked() : true表示打勾, false(nil)表示無打勾
 	--if (SC_Self == 1) then 
 	--	SC_Self = true;
@@ -563,6 +571,7 @@ function CreateFrames_CfgBtn_SaveSpellCondition(self)
 		EAItem.redsectext = SC_RedSecText;
 		EAItem.orderwtd = SC_OrderWtd;
 		EAItem.nextLineShow = Chk_nextLineShow;
+
 	end
 	if (FrameIndex == 1) then
 		CreateFrames_CfgBtnFun_SaveToItem(EA_Items[EA_playerClass][SpellID])
@@ -650,6 +659,7 @@ function CreateFrames_CfgBtn_LoadSpellCondition(self)
 	elseif (FrameIndex == 5) then
 		CreateFrames_CfgBtnFun_GetFromSave(EA_ScdItems[EA_playerClass][SpellID]);
 	end
+	-- TODO allan 是否需要赋值nextLineShow
 	if (SC_Stack == nil or SC_Stack <=1) then
 		Chk_Stack = false;
 		SC_Stack = 1;

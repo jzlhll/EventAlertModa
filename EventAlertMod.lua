@@ -108,6 +108,15 @@ EA_Position = 	{
 				PlayerLv2BOSS,
 				SCD_UseCooldown,
 				};
+
+NextLineShowConfig = {
+				Anchor,
+				relativePoint,
+				xLoc,
+				yLoc,
+				xOffset,
+				yOffset,
+				};
 -----------------------------------------------------------------
 -----------------------------------------------------------------
 EA_Pos = { };
@@ -270,7 +279,7 @@ function EventAlert_ADDON_LOADED(self, event, ...)
 		EventAlert_InitArrayConfig()
 		EventAlert_InitArrayPosition()
 		EventAlert_InitArrayPos()
-		
+		EventAlert_InitNextLineShowConfig()
 		if (EA_Config.ShareSettings ~= true) then
 			EA_Position = EA_Pos[EA_playerClass];
 			if EA_Position.Tar_NewLine == nil then EA_Position.Tar_NewLine = true end;
@@ -352,6 +361,15 @@ function EventAlert_AdjustFontSizeWithIconSize()
 	EA_Config.SNameFontSize = EA_Config.IconSize * 0.3					--名稱大小比例
 	--if EA_Config.SNameFontSize < 10 then EA_Config.SNameFontSize = 10 end;	
 	
+end
+-------------------------
+function EventAlert_InitNextLineShowConfig()
+	if NextLineShowConfig.Anchor == nil then NextLineShowConfig.Anchor = "CENTER" end;
+	if NextLineShowConfig.relativePoint == nil then NextLineShowConfig.relativePoint = "CENTER" end;
+	if NextLineShowConfig.xLoc == nil then NextLineShowConfig.xLoc = 0 end;
+	if NextLineShowConfig.yLoc == nil then NextLineShowConfig.yLoc = -320 end;
+	if NextLineShowConfig.xOffset == nil then NextLineShowConfig.xOffset = -40 end;
+	if NextLineShowConfig.yOffset == nil then NextLineShowConfig.yOffset = 0 end;
 end
 -----------------------------------------------------------------
 function EventAlert_InitArrayPosition()

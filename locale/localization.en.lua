@@ -86,6 +86,8 @@ EA_XOPT_SPELLCOND_SELF = "Spell cast by player";
 EA_XOPT_SPELLCOND_OVERGROW = "Highlight spell (stacks >=)"
 EA_XOPT_SPELLCOND_REDSECTEXT = "Red countdown text sec<="
 EA_XOPT_SPELLCOND_ORDERWTD   = "The Order-Weight(1-20):"
+EA_XOPT_NEXTLINE_SHOW   = "nextLine show(A)"
+EA_XOPT_NEXTLINE_SHOW_TOAST   = "Allan add: This buff/debuff will be shown at an extra line."
 
 EA_XICON_LOCKFRAME = "Lock Frame";
 EA_XICON_LOCKFRAMETIP = "You must unlock the alert frame in order to move it or reset it's position.";
@@ -117,6 +119,7 @@ EA_XICON_TAR_VERSPACE = "Vertical Spacing w/ Alert Frame";
 EA_XICON_TOGGLE_ALERTFRAME = "Adjust Alert Sample Position";
 EA_XICON_RESET_FRAMEPOS = "Reset Alert Position";
 EA_XICON_SELF_BUFF = "Self Buff";
+EA_XICON_SELF_NEXTLINEBUFF = "NextLine Buff";
 EA_XICON_SELF_SPBUFF = "Self Debuff(1)\nOr SpecFrame";
 EA_XICON_SELF_DEBUFF = "Self Debuff";
 EA_XICON_TARGET_BUFF = "Target Buff";

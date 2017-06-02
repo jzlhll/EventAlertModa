@@ -955,11 +955,11 @@
 				</Anchors>
 				<Scripts>
 					<OnLoad>
-						_G[self:GetName().."Text"]:SetText("换行显示By Allan");
+						_G[self:GetName().."Text"]:SetText("EA_XOPT_NEXTLINE_SHOW");
 					</OnLoad>
 					<OnEnter>
 						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-						GameTooltip:SetText("AllanAdd:该buff/debuff会在当前行下面一行单独显示");
+						GameTooltip:SetText("EA_XOPT_NEXTLINE_SHOW_TOAST");
 					</OnEnter>
 					<OnLeave>
 						GameTooltip:Hide();

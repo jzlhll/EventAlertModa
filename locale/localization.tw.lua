@@ -88,6 +88,8 @@ EA_XOPT_SPELLCOND_SELF = "只限制為玩家施放的法術";
 EA_XOPT_SPELLCOND_OVERGROW = "法術堆疊>=幾層時顯示高亮:"
 EA_XOPT_SPELLCOND_REDSECTEXT = "倒數秒數<=幾秒時顯示紅字:"
 EA_XOPT_SPELLCOND_ORDERWTD   = "顯示順序的優先比重(1-20):"
+EA_XOPT_NEXTLINE_SHOW   = "換行顯示(A)"
+EA_XOPT_NEXTLINE_SHOW_TOAST   = "Allan add:這個buff/debuff將會在一個單獨行中顯示"
 
 EA_XICON_LOCKFRAME = "鎖定範例框架";
 EA_XICON_LOCKFRAMETIP = "若要移動『提示框架』或『重設框架位置』時，請將『鎖定範例框架』的打勾取消";
@@ -119,6 +121,7 @@ EA_XICON_TAR_VERSPACE = "與提醒框架垂直間距";
 EA_XICON_TOGGLE_ALERTFRAME = "移動框架";
 EA_XICON_RESET_FRAMEPOS = "重設框架位置";
 EA_XICON_SELF_BUFF = "本身Buff";
+EA_XICON_SELF_NEXTLINEBUFF = "跨行Buff";
 EA_XICON_SELF_SPBUFF = "本身DeBuff(1)\n或特殊框架";
 EA_XICON_SELF_DEBUFF = "本身Debuff";
 EA_XICON_TARGET_BUFF = "目標Buff";
