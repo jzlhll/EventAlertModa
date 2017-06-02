@@ -611,13 +611,15 @@ end
 -----------------------------------------------------------------
 local function EAFun_CheckSpellConditionMatch(EA_count, EA_unitCaster, EAItems)
 	local ifAdd_buffCur, orderWtd = true, 1;
+	local nextLineShow = false;
 	local SC_Stack, SC_Self = 1, false;
 	if (EAItems ~= nil) then
 		if (EAItems.stack ~= nil) then SC_Stack = EAItems.stack end;
 		if (EAItems.self ~= nil) then SC_Self = EAItems.self end
-		if (EAItems.orderwtd ~= nil) then orderWtd = EAItems.orderwtd end		
+		if (EAItems.orderwtd ~= nil) then orderWtd = EAItems.orderwtd end
+		if (EAItems.nextLineShow ~= nil) then nextLineShow = EAItems.nextLineShow end
 	end
-	
+
 	if (SC_Stack ~= nil and SC_Stack > 1) then		
 		if (EA_count < SC_Stack) then ifAdd_buffCur = false end;
 	end
@@ -629,7 +631,7 @@ local function EAFun_CheckSpellConditionMatch(EA_count, EA_unitCaster, EAItems)
 		end	
 	end
 	
-	return ifAdd_buffCur, orderWtd;
+	return ifAdd_buffCur, orderWtd, nextLineShow;
 end
 -----------------------------------------------------------------
 local function EAFun_GetSpellItemEnable(EAItems)
@@ -669,6 +671,7 @@ function EventAlert_Buffs_Update(...)
 	local buffsToDelete = {};
 	local SpellEnable, OtherEnable = false, false;
 	local ifAdd_buffCur = false;
+	local nextLineShow = false;
 	local orderWtd = 1;
 	-- DEFAULT_CHAT_FRAME:AddMessage("EventAlert_Buffs_Update");
 	-- if (EA_DEBUGFLAG1) then
@@ -701,16 +704,17 @@ function EventAlert_Buffs_Update(...)
 		end
 
 		ifAdd_buffCur = false
+		nextLineShow = false
 		--spellID = tostring(spellID)
 		SpellEnable = EAFun_GetSpellItemEnable(EA_Items[EA_playerClass][spellID]);
 		OtherEnable = EAFun_GetSpellItemEnable(EA_Items[EA_CLASS_OTHER][spellID]);
 		
 		if (SpellEnable) then
 			-- ifAdd_buffCur = true;
-			ifAdd_buffCur, orderWtd = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_Items[EA_playerClass][spellID])
+			ifAdd_buffCur, orderWtd, nextLineShow = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_Items[EA_playerClass][spellID])
 		elseif (OtherEnable) then
 			-- ifAdd_buffCur = true;
-			ifAdd_buffCur, orderWtd = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_Items[EA_CLASS_OTHER][spellID])
+			ifAdd_buffCur, orderWtd, nextLineShow = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_Items[EA_CLASS_OTHER][spellID])
 		elseif (EA_DEBUGFLAG11 or EA_DEBUGFLAG21) then
 			-- ifAdd_buffCur = true;
 			if (EA_LISTSEC_SELF == 0 or (0 < duration and duration <= EA_LISTSEC_SELF)) then
@@ -735,6 +739,7 @@ function EventAlert_Buffs_Update(...)
 			EA_SPELLINFO_SELF[spellID].unitCaster = unitCaster;
 			EA_SPELLINFO_SELF[spellID].isDebuff = false;
 			EA_SPELLINFO_SELF[spellID].orderWtd = orderWtd;
+			EA_SPELLINFO_SELF[spellID].nextLineShow = nextLineShow;
 			EA_SPELLINFO_SELF[spellID].value = {value1, value2, value3}
 			--EA_SPELLINFO_SELF[spellID].value1 = value1;
 			--EA_SPELLINFO_SELF[spellID].value2 = value2;
@@ -764,16 +769,17 @@ function EventAlert_Buffs_Update(...)
 		end
 
 		ifAdd_buffCur = false
+		nextLineShow = false
 		--spellID = tostring(spellID)
 		SpellEnable = EAFun_GetSpellItemEnable(EA_Items[EA_playerClass][spellID]);
 		OtherEnable = EAFun_GetSpellItemEnable(EA_Items[EA_CLASS_OTHER][spellID]);
 		
 		if (SpellEnable) then
 			-- ifAdd_buffCur = true;
-			ifAdd_buffCur, orderWtd = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_Items[EA_playerClass][spellID])
+			ifAdd_buffCur, orderWtd, nextLineShow = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_Items[EA_playerClass][spellID])
 		elseif (OtherEnable) then
 			-- ifAdd_buffCur = true;
-			ifAdd_buffCur, orderWtd = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_Items[EA_CLASS_OTHER][spellID])
+			ifAdd_buffCur, orderWtd, nextLineShow = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_Items[EA_CLASS_OTHER][spellID])
 		elseif (EA_DEBUGFLAG11 or EA_DEBUGFLAG21) then
 			-- ifAdd_buffCur = true;
 			if (EA_LISTSEC_SELF == 0 or (0 < duration and duration <= EA_LISTSEC_SELF)) then
@@ -798,6 +804,7 @@ function EventAlert_Buffs_Update(...)
 			EA_SPELLINFO_SELF[spellID].unitCaster = unitCaster;
 			EA_SPELLINFO_SELF[spellID].isDebuff = false;
 			EA_SPELLINFO_SELF[spellID].orderWtd = orderWtd;
+			EA_SPELLINFO_SELF[spellID].nextLineShow = nextLineShow;
 			EA_SPELLINFO_SELF[spellID].value = {value1, value2, value3}
 			--EA_SPELLINFO_SELF[spellID].value1 = value1;
 			--EA_SPELLINFO_SELF[spellID].value2 = value2;
@@ -824,15 +831,16 @@ function EventAlert_Buffs_Update(...)
 		end
 
 		ifAdd_buffCur = false
+		nextLineShow = false
 		--spellID = tostring(spellID)
 		SpellEnable = EAFun_GetSpellItemEnable(EA_Items[EA_playerClass][spellID]);
 		OtherEnable = EAFun_GetSpellItemEnable(EA_Items[EA_CLASS_OTHER][spellID]);
 		if (SpellEnable) then
 			-- ifAdd_buffCur = true;
-			ifAdd_buffCur, orderWtd = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_Items[EA_playerClass][tostring(spellID)]);
+			ifAdd_buffCur, orderWtd, nextLineShow = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_Items[EA_playerClass][tostring(spellID)]);
 		elseif (OtherEnable) then
 			-- ifAdd_buffCur = true;
-			ifAdd_buffCur, orderWtd = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_Items[EA_CLASS_OTHER][tostring(spellID)]);
+			ifAdd_buffCur, orderWtd, nextLineShow = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_Items[EA_CLASS_OTHER][tostring(spellID)]);
 		elseif (EA_DEBUGFLAG11 or EA_DEBUGFLAG21) then
 			-- ifAdd_buffCur = true;
 			if (EA_LISTSEC_SELF == 0 or (0 < duration and duration <= EA_LISTSEC_SELF)) then
@@ -856,6 +864,7 @@ function EventAlert_Buffs_Update(...)
 			EA_SPELLINFO_SELF[spellID].unitCaster = unitCaster;
 			EA_SPELLINFO_SELF[spellID].isDebuff = true;
 			EA_SPELLINFO_SELF[spellID].orderWtd = orderWtd;
+			EA_SPELLINFO_SELF[spellID].nextLineShow = nextLineShow;
 			EA_SPELLINFO_SELF[spellID].value = {value1,value2,value3}
 			--EA_SPELLINFO_SELF[spellID].value1 = value1;
 			--EA_SPELLINFO_SELF[spellID].value2 = value2;
@@ -883,15 +892,16 @@ function EventAlert_Buffs_Update(...)
 		end
 
 		ifAdd_buffCur = false
+		nextLineShow = false
 		--spellID = tostring(spellID)
 		SpellEnable = EAFun_GetSpellItemEnable(EA_Items[EA_playerClass][spellID]);
 		OtherEnable = EAFun_GetSpellItemEnable(EA_Items[EA_CLASS_OTHER][spellID]);
 		if (SpellEnable) then
 			-- ifAdd_buffCur = true;
-			ifAdd_buffCur, orderWtd = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_Items[EA_playerClass][spellID]);
+			ifAdd_buffCur, orderWtd, nextLineShow = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_Items[EA_playerClass][spellID]);
 		elseif (OtherEnable) then
 			-- ifAdd_buffCur = true;
-			ifAdd_buffCur, orderWtd = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_Items[EA_CLASS_OTHER][spellID]);
+			ifAdd_buffCur, orderWtd, nextLineShow = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_Items[EA_CLASS_OTHER][spellID]);
 		elseif (EA_DEBUGFLAG11 or EA_DEBUGFLAG21) then
 			-- ifAdd_buffCur = true;
 			if (EA_LISTSEC_SELF == 0 or (0 < duration and duration <= EA_LISTSEC_SELF)) then
@@ -915,6 +925,7 @@ function EventAlert_Buffs_Update(...)
 			EA_SPELLINFO_SELF[spellID].unitCaster = unitCaster;
 			EA_SPELLINFO_SELF[spellID].isDebuff = true;
 			EA_SPELLINFO_SELF[spellID].orderWtd = orderWtd;
+			EA_SPELLINFO_SELF[spellID].nextLineShow = nextLineShow;
 			EA_SPELLINFO_SELF[spellID].value = {value1, value2, value3}
 			--EA_SPELLINFO_SELF[spellID].value1 = value1;
 			--EA_SPELLINFO_SELF[spellID].value2 = value2;
@@ -1012,6 +1023,7 @@ function EventAlert_TarBuffs_Update(...)
 	local buffsToDelete = {};
 	local SpellEnable = false;
 	local ifAdd_buffCur = false;
+	local nextLineShow = false;
 	local orderWtd = 1;
 	-- DEFAULT_CHAT_FRAME:AddMessage("EventAlert_Buffs_Update");
 	-- if (EA_DEBUGFLAG2) then
@@ -1041,11 +1053,11 @@ function EventAlert_TarBuffs_Update(...)
 		OtherEnable = EAFun_GetSpellItemEnable(EA_Items[EA_CLASS_OTHER][spellID]);
 				
 		if (SpellEnable) then			
-			ifAdd_buffCur, orderWtd = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_TarItems[EA_playerClass][spellID])	
+			ifAdd_buffCur, orderWtd, nextLineShow = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_TarItems[EA_playerClass][spellID])	
 			
 		elseif (OtherEnable) then
 			-- ifAdd_buffCur = true;
-			ifAdd_buffCur, orderWtd = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_Items[EA_CLASS_OTHER][spellID])
+			ifAdd_buffCur, orderWtd, nextLineShow = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_Items[EA_CLASS_OTHER][spellID])
 		end 
 		
 		if (ifAdd_buffCur) then
@@ -1092,10 +1104,10 @@ function EventAlert_TarBuffs_Update(...)
 		OtherEnable = EAFun_GetSpellItemEnable(EA_Items[EA_CLASS_OTHER][spellID]);
 		
 		if (SpellEnable) then			
-			ifAdd_buffCur, orderWtd = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_TarItems[EA_playerClass][spellID]);
+			ifAdd_buffCur, orderWtd, nextLineShow = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_TarItems[EA_playerClass][spellID]);
 		elseif (OtherEnable) then
 			-- ifAdd_buffCur = true;
-			ifAdd_buffCur, orderWtd = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_Items[EA_CLASS_OTHER][spellID])
+			ifAdd_buffCur, orderWtd, nextLineShow = EAFun_CheckSpellConditionMatch(count, unitCaster, EA_Items[EA_CLASS_OTHER][spellID])
 		end 
 		if (ifAdd_buffCur) then
 				if EA_SPELLINFO_TARGET[spellID] == nil then EA_SPELLINFO_TARGET[spellID] = {name, rank, icon, count, duration, expirationTime, unitCaster, isDebuff} end;
@@ -1380,6 +1392,7 @@ function EventAlert_OnUpdate(spellID)
 			local EA_count = EA_SPELLINFO_SELF[spellID].count;
 			local EA_expirationTime = EA_SPELLINFO_SELF[spellID].expirationTime;
 			local IfIsDebuff = EA_SPELLINFO_SELF[spellID].isDebuff;
+			--allan TODO 是否该做点什么？ local IfIsNextLineShow = EA_SPELLINFO_SELF[spellID].nextLineShow;
 			local EA_currentTime = 0;
 			local EA_timeLeft = 0;
 
@@ -1424,6 +1437,7 @@ function EventAlert_OnTarUpdate(spellID)
 			local EA_count = EA_SPELLINFO_TARGET[spellID].count;
 			local EA_expirationTime = EA_SPELLINFO_TARGET[spellID].expirationTime;			
 			local IfIsDebuff = EA_SPELLINFO_TARGET[spellID].isDebuff;
+			-- allan TODO 暂时不处理Tar
 			local EA_currentTime = 0;
 			local EA_timeLeft = 0;
 
@@ -1603,36 +1617,51 @@ function EventAlert_PositionFrames()
 			--local gsiValue3 = EA_SPELLINFO_SELF[spellID].value3;
 			local gsiIcon = EA_SPELLINFO_SELF[spellID].icon;
 			local gsiIsDebuff = EA_SPELLINFO_SELF[spellID].isDebuff;
+      		local gsiIsNextLineShow = EA_SPELLINFO_SELF[spellID].nextLineShow;
 
 			if eaf ~= nil then
 				eaf:ClearAllPoints();
 				if EA_Position.Tar_NewLine then
+					print("A1:"..EA_Position.Anchor)
+					print("A2:"..xOffset)
+					print("A3:"..yOffset)
 					if gsiIsDebuff then
+						print("isDebuff")
 						if (prevFrame2 == "EA_Main_Frame" or prevFrame2 == eaf) then
 							prevFrame2 = "EA_Main_Frame";
+							print("0000")
 							if EA_SpecFrame_Self then
-								eaf:SetPoint(EA_Position.Anchor, prevFrame2, EA_Position.Anchor, -2 * xOffset, -2 * yOffset);
+								print("1111")
+							    eaf:SetPoint(EA_Position.Anchor, prevFrame2, EA_Position.Anchor, -2 * xOffset, -2 * yOffset);
 							else
+								print("2222")
 								eaf:SetPoint(EA_Position.Anchor, prevFrame2, EA_Position.Anchor, -1 * xOffset, -1 * yOffset);
 							end
 						else
+							print("3333")
 							eaf:SetPoint("CENTER", prevFrame2, "CENTER", -1 * xOffset, -1 * yOffset);
 						end
 						prevFrame2 = eaf;
 					else
+						print("is Not Debuff")
 						if (prevFrame == "EA_Main_Frame" or prevFrame == eaf) then
 							prevFrame = "EA_Main_Frame";
+							print("44444")
 							eaf:SetPoint(EA_Position.Anchor, prevFrame, EA_Position.Anchor, 0, 0);
 						else
+							print("5555")
 							eaf:SetPoint("CENTER", prevFrame, "CENTER", xOffset, yOffset);
 						end
 						prevFrame = eaf;
 					end
 				else
+					print("is not Tar_NewLine")
 					if (prevFrame == "EA_Main_Frame" or prevFrame == eaf) then
+						print("666")
 						prevFrame = "EA_Main_Frame";
 						eaf:SetPoint(EA_Position.Anchor, prevFrame, EA_Position.Anchor, 0, 0);
 					else
+						print("777")
 						eaf:SetPoint("CENTER", prevFrame, "CENTER", xOffset, yOffset);
 					end
 					prevFrame = eaf;
@@ -1653,7 +1682,6 @@ function EventAlert_PositionFrames()
 
 				 
 				if gsiIsDebuff then eaf:SetBackdropColor(1.0, EA_Position.RedDebuff, EA_Position.RedDebuff) end;
-				
 				if (EA_Config.ShowName == true) then
 					local tmp = gsiName
 					if gsiValue and type(gsiValue)=="table" then
@@ -1704,7 +1732,7 @@ function EventAlert_TarPositionFrames()
 			--local gsiValue2 = EA_SPELLINFO_TARGET[spellID].value2;
 			--local gsiValue3 = EA_SPELLINFO_TARGET[spellID].value3;
 			local gsiIsDebuff = EA_SPELLINFO_TARGET[spellID].isDebuff;
-
+			-- allan TODO 暂时不处理Tar
 			if eaf ~= nil then
 				eaf:ClearAllPoints();
 				if EA_Position.Tar_NewLine then
@@ -3135,6 +3163,36 @@ function EAFun_HookTooltips()
 		end
 	end)
 end
+
+----------------
+-- Allan Add: 当执行完成下面的排序后，将nextLineShow提取出来
+-- 这个方法暂时可以不用
+function EAFun_allanCropCurrBuffsAfterSorted(TypeIndex, EACurrOrderedBuffs)
+  local oldArray = {};
+  local nextArray = {};
+  local nextLineShow = false;
+  local oldIndex = 0;
+  local nextIndex = 0;
+  if (TypeIndex == 1) then
+    for Loopi=1, #EACurrOrderedBuffs do
+      nextLineShow = false;
+      nextLineShow = EA_SPELLINFO_SELF[EACurrOrderedBuffs[Loopi]].nextLineShow;
+      if (nextLineShow == nil) then nextLineShow = false end;
+      if (nextLineShow == true) then
+        table.insert(nextArray[nextIndex], EACurrOrderedBuffs[Loopi]);
+        nextIndex = nextIndex + 1
+      else 
+        table.insert(oldArray[oldIndex], EACurrOrderedBuffs[Loopi]);
+        oldIndex = oldIndex + 1
+      end
+    end
+    return oldArray, nextArray;
+  else
+    return EACurrOrderedBuffs, nextArray;
+  end
+end
+----------------
+
 -----------------------------------------------------------------
 -- For OrderWtd, to sort the order of the buffs/debuffs.
 function EAFun_SortCurrBuffs(TypeIndex, EACurrBuffs)

@@ -511,7 +511,7 @@ function CreateFrames_CfgBtn_SaveSpellCondition(self)
 	local FrameIndex = self.FrameIndex;
 	local SpellID = self.SpellID;
 	local SC_Stack, SC_Self, SC_OverGrow, SC_RedSecText, SC_OrderWtd = nil, nil, nil, nil, nil;
-	local Chk_Stack, Chk_OverGrow, Chk_RedSecText, Chk_OrderWtd = false, false, false, false;
+	local Chk_Stack, Chk_OverGrow, Chk_RedSecText, Chk_OrderWtd, Chk_nextLineShow = false, false, false, false, false;
 
 	-- // Get Checkbox and TextEdit Value From SpellConditionFrame and Recheck if valid.
 	local function CreateFrames_CfgBtnFun_GetChkText(ChkBox, TextEdit)
@@ -528,8 +528,8 @@ function CreateFrames_CfgBtn_SaveSpellCondition(self)
 	end
 
 	SC_Self = EA_SpellCondition_Frame_Self:GetChecked()
-	
-	
+	Chk_nextLineShow = EA_SpellCondition_Frame_nextLineShow:GetChecked()
+
 	--CHKBOX 的勾選資訊回傳函數 GetChecked() : true表示打勾, false(nil)表示無打勾
 	--if (SC_Self == 1) then 
 	--	SC_Self = true;
@@ -556,12 +556,13 @@ function CreateFrames_CfgBtn_SaveSpellCondition(self)
 
 	-- // Save Checkbox and TextEdit Value To SaveVariables
 	local function CreateFrames_CfgBtnFun_SaveToItem(EAItem)
-		
+
 		EAItem.stack = SC_Stack;
 		EAItem.self = SC_Self;
 		EAItem.overgrow = SC_OverGrow;
 		EAItem.redsectext = SC_RedSecText;
 		EAItem.orderwtd = SC_OrderWtd;
+		EAItem.nextLineShow = Chk_nextLineShow;
 	end
 	if (FrameIndex == 1) then
 		CreateFrames_CfgBtnFun_SaveToItem(EA_Items[EA_playerClass][SpellID])
@@ -628,7 +629,7 @@ function CreateFrames_CfgBtn_LoadSpellCondition(self)
 
 	-- // Get Checkbox and TextEdit Value From SaveVariables
 	local SC_Stack, SC_Self, SC_OverGrow, SC_RedSecText, SC_OrderWtd = nil, nil, nil, nil, nil;
-	local Chk_Stack, Chk_OverGrow, Chk_RedSecText, Chk_OrderWtd = false, false, false, false;
+	local Chk_Stack, Chk_OverGrow, Chk_RedSecText, Chk_OrderWtd, Chk_nextLineShow = false, false, false, false, false;
 	local function CreateFrames_CfgBtnFun_GetFromSave(EAItem)
 		
 		SC_Stack = EAItem.stack;
@@ -636,6 +637,7 @@ function CreateFrames_CfgBtn_LoadSpellCondition(self)
 		SC_OverGrow = EAItem.overgrow;
 		SC_RedSecText = EAItem.redsectext;
 		SC_OrderWtd = EAItem.orderwtd;
+		Chk_nextLineShow = EAItem.nextLineShow;
 	end
 	if (FrameIndex == 1) then
 		CreateFrames_CfgBtnFun_GetFromSave(EA_Items[EA_playerClass][SpellID]);
@@ -686,6 +688,7 @@ function CreateFrames_CfgBtn_LoadSpellCondition(self)
 	end
 	CreateFrames_CfgBtnFun_SetChkText(EA_SpellCondition_Frame_Stack, EA_SpellCondition_Frame_StackEditBox, Chk_Stack, SC_Stack);
 	EA_SpellCondition_Frame_Self:SetChecked(SC_Self);
+	EA_SpellCondition_Frame_nextLineShow:SetChecked(Chk_nextLineShow);
 	CreateFrames_CfgBtnFun_SetChkText(EA_SpellCondition_Frame_OverGrow, EA_SpellCondition_Frame_OverGrowEditBox, Chk_OverGrow, SC_OverGrow);
 	CreateFrames_CfgBtnFun_SetChkText(EA_SpellCondition_Frame_RedSecText, EA_SpellCondition_Frame_RedSecTextEditBox, Chk_RedSecText, SC_RedSecText);
 	CreateFrames_CfgBtnFun_SetChkText(EA_SpellCondition_Frame_OrderWtd, EA_SpellCondition_Frame_OrderWtdEditBox, Chk_OrderWtd, SC_OrderWtd);

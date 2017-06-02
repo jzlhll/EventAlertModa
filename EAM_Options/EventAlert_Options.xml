@@ -944,7 +944,29 @@
 				</Scripts>
 				<FontString inherits="ChatFontNormal" />
 			</EditBox>
-
+			<!-- alan aadd-->
+			<CheckButton name="$parent_nextLineShow" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parent_OrderWtd" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText("换行显示By Allan");
+					</OnLoad>
+					<OnEnter>
+						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+						GameTooltip:SetText("AllanAdd:该buff/debuff会在当前行下面一行单独显示");
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</CheckButton>
+			<!-- -->
 			<Button name="$parent_Cancel" inherits="OptionsButtonTemplate" text="Cancel">
 				<Size>
 					<AbsDimension x="75" y="21" />
@@ -952,7 +974,7 @@
 				<Anchors>
 					<Anchor relativepoint="BOTTOM" point="CENTER">
 						<Offset>
-							<AbsDimension x="50" y="35" />
+							<AbsDimension x="50" y="28" />
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -972,7 +994,7 @@
 				<Anchors>
 					<Anchor relativepoint="BOTTOM" point="CENTER">
 						<Offset>
-							<AbsDimension x="-50" y="35" />
+							<AbsDimension x="-50" y="28" />
 						</Offset>
 					</Anchor>
 				</Anchors>
