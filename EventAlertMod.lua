@@ -369,7 +369,7 @@ function EventAlert_InitNextLineShowConfig()
 	if NextLineShowConfig.xLoc == nil then NextLineShowConfig.xLoc = 0 end;
 	if NextLineShowConfig.yLoc == nil then NextLineShowConfig.yLoc = -320 end;
 	if NextLineShowConfig.IconSize == nil then NextLineShowConfig.IconSize = 36 end;
-	if NextLineShowConfig.CompareEAConfigSizeRatio == nil then NextLineShowConfig.CompareEAConfigSizeRatio = 1.0 end;
+	if NextLineShowConfig.CompareEAConfigSizeRatio == nil then NextLineShowConfig.CompareEAConfigSizeRatio = 100 end;
 end
 -----------------------------------------------------------------
 function EventAlert_InitArrayPosition()

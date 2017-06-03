@@ -246,7 +246,7 @@ EA_XLOAD_NEWVERSION_LOAD = "Use \124cffFFFF00/eam help\124r to read the command 
 	"Player can change it dynamically in [/eam opt].\n\n"..
 ""; -- END OF NEWVERSION
 
-EA_XCMD_VER = " \124cff00FFFFBy Whitep@TW-REALM\124r version: ";
+EA_XCMD_VER = "By \124cff00FFFFAllan@NGAµµ¤j\124r Whitep@TW-REALM version: ";
 EA_XCMD_DEBUG = " debug mode: ";
 EA_XCMD_SELFLIST = " Show player Buff/Debuff: ";
 EA_XCMD_TARGETLIST = " Show target Debuff: ";

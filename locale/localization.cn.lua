@@ -88,7 +88,7 @@ EA_XOPT_SPELLCOND_SELF = "只限制为玩家施放的法术";
 EA_XOPT_SPELLCOND_OVERGROW = "法术堆叠>=几层时显示高亮:"
 EA_XOPT_SPELLCOND_REDSECTEXT = "倒数秒数<=几秒时显示红字:"
 EA_XOPT_SPELLCOND_ORDERWTD   = "显示顺序的优先比重(1-20):"
-EA_XOPT_NEXTLINE_SHOW   = "换行显示(A)"
+EA_XOPT_NEXTLINE_SHOW   = "额外行显示(A)"
 EA_XOPT_NEXTLINE_SHOW_TOAST   = "Allan add:这个buff/debuff将会在一个单独行中显示"
 
 EA_XICON_LOCKFRAME = "锁定范例框架";
@@ -249,7 +249,7 @@ EA_XLOAD_NEWVERSION_LOAD = "请使用 \124cffFFFF00/eam help\124r 查阅详细�
 
 
 
-EA_XCMD_VER = " \124cff00FFFFBy Whitep@雷鳞\124r 版本: ";
+EA_XCMD_VER = "By \124cff00FFFFAllan@NGA紫大\124r Whitep@雷鳞 版本: ";
 EA_XCMD_DEBUG = " 模式: ";
 EA_XCMD_SELFLIST = " 显示自身Buff/Debuff: ";
 EA_XCMD_TARGETLIST = " 显示目标Debuff: ";

@@ -73,6 +73,35 @@ function EventAlert_Icon_Options_Frame_ToggleAlertFrame()
 	end
 end
 
+function EventAlert_Icon_Options_Frame_SetAlertFrameTextNextLine(eaf, spellName)
+	if (eaf ~= nil) then
+		if (EA_Config.ShowName == true) then
+			eaf.spellName:SetText(spellName);
+		else
+			eaf.spellName:SetText("");
+		end
+
+		eaf.spellTimer:ClearAllPoints();
+		if (EA_Config.ShowTimer == true) then
+			if (EA_Config.ChangeTimer == true) then
+				eaf.spellTimer:SetPoint("CENTER", eaf, "CENTER", 0, 0);
+				eaf.spellTimer:SetFont("Fonts\\FRIZQT__.TTF", EA_Config.TimerFontSize, "OUTLINE");
+				eaf.spellTimer:SetText("TIME\nLEFT");
+			else
+				eaf.spellTimer:SetPoint("BOTTOM", eaf, "TOP", 0, 0);
+				eaf.spellTimer:SetFont("Fonts\\FRIZQT__.TTF", EA_Config.TimerFontSize, "OUTLINE");
+				eaf.spellTimer:SetText("TIME LEFT");
+			end
+		else
+			eaf.spellTimer:SetText("");
+		end
+
+		eaf:SetWidth(EA_Config.IconSize * NextLineShowConfig.CompareEAConfigSizeRatio / 100);
+		eaf:SetHeight(EA_Config.IconSize * NextLineShowConfig.CompareEAConfigSizeRatio / 100);
+
+		eaf:Show();
+	end
+end
 
 function EventAlert_Icon_Options_Frame_SetAlertFrameText(eaf, spellName, toSetTextAndShow)
 	if (eaf ~= nil) then
@@ -119,9 +148,11 @@ function EventAlert_Icon_Options_Frame_PaintAlertFrame()
 			EA_Anchor_FrameA1:ClearAllPoints();
 			local nxLoc = 0 + NextLineShowConfig.xLoc;
 			local nyLoc = 0 + NextLineShowConfig.yLoc;
+			local nxOffset = xOffset * NextLineShowConfig.CompareEAConfigSizeRatio / 100;
+			local nyOffset = yOffset * NextLineShowConfig.CompareEAConfigSizeRatio / 100;
 			EA_Anchor_FrameA1:SetPoint(NextLineShowConfig.Anchor, nxLoc, nyLoc);
 			EA_Anchor_FrameA2:ClearAllPoints();
-			EA_Anchor_FrameA2:SetPoint("CENTER", EA_Anchor_FrameA1, xOffset, yOffset);
+			EA_Anchor_FrameA2:SetPoint("CENTER", EA_Anchor_FrameA1, nxOffset, nyOffset);
 			--
 			EA_Anchor_Frame3:ClearAllPoints();
 			EA_Anchor_Frame3:SetPoint("CENTER", EA_Anchor_Frame1, -1 * xOffset, yOffset);
@@ -163,8 +194,8 @@ function EventAlert_Icon_Options_Frame_PaintAlertFrame()
 
 			EventAlert_Icon_Options_Frame_SetAlertFrameText(EA_Anchor_Frame1,  EA_XICON_SELF_BUFF.."(1)", true);
 			EventAlert_Icon_Options_Frame_SetAlertFrameText(EA_Anchor_Frame2,  EA_XICON_SELF_BUFF.."(2)", true);
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EA_Anchor_FrameA1,  EA_XICON_SELF_NEXTLINEBUFF.."(1)", true);
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EA_Anchor_FrameA2,  EA_XICON_SELF_NEXTLINEBUFF.."(2)", true);
+			EventAlert_Icon_Options_Frame_SetAlertFrameTextNextLine(EA_Anchor_FrameA1,  EA_XICON_SELF_NEXTLINEBUFF.."(1)");
+			EventAlert_Icon_Options_Frame_SetAlertFrameTextNextLine(EA_Anchor_FrameA2,  EA_XICON_SELF_NEXTLINEBUFF.."(2)");
 			EventAlert_Icon_Options_Frame_SetAlertFrameText(EA_Anchor_Frame3,  EA_XICON_SELF_SPBUFF, true);
 			EventAlert_Icon_Options_Frame_SetAlertFrameText(EA_Anchor_Frame4,  EA_XICON_SELF_DEBUFF.."(2)", true);
 			EventAlert_Icon_Options_Frame_SetAlertFrameText(EA_Anchor_Frame5,  EA_XICON_TARGET_DEBUFF.."(1)", true);
@@ -298,7 +329,7 @@ function EventAlert_Icon_Options_Frame_ResetFrame()
 		NextLineShowConfig.xLoc = 0;
 		NextLineShowConfig.yLoc = -320;
 		NextLineShowConfig.IconSize = 36;
-		NextLineShowConfig.CompareEAConfigSizeRatio = 1.0;
+		NextLineShowConfig.CompareEAConfigSizeRatio = 100;
 		EA_Icon_Options_Frame_NextLineIconSize:SetValue(NextLineShowConfig.IconSize);
 
 		EA_Position.Tar_NewLine = true;
