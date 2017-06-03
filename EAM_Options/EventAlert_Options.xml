@@ -955,11 +955,11 @@
 				</Anchors>
 				<Scripts>
 					<OnLoad>
-						_G[self:GetName().."Text"]:SetText("EA_XOPT_NEXTLINE_SHOW");
+						_G[self:GetName().."Text"]:SetText(EA_XOPT_NEXTLINE_SHOW);
 					</OnLoad>
 					<OnEnter>
 						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-						GameTooltip:SetText("EA_XOPT_NEXTLINE_SHOW_TOAST");
+						GameTooltip:SetText(EA_XOPT_NEXTLINE_SHOW_TOAST);
 					</OnEnter>
 					<OnLeave>
 						GameTooltip:Hide();

@@ -116,7 +116,9 @@ function EventAlert_Icon_Options_Frame_PaintAlertFrame()
 			EA_Anchor_Frame2:SetPoint("CENTER", EA_Anchor_Frame1, xOffset, yOffset);
 			--allan add
 			EA_Anchor_FrameA1:ClearAllPoints();
-			EA_Anchor_FrameA1:SetPoint(NextLineShowConfig.Anchor, NextLineShowConfig.xLoc, NextLineShowConfig.yLoc);
+			local nxLoc = 0 + NextLineShowConfig.xLoc;
+			local nyLoc = 0 + NextLineShowConfig.yLoc;
+			EA_Anchor_FrameA1:SetPoint(NextLineShowConfig.Anchor, nxLoc, nyLoc);
 			EA_Anchor_FrameA2:ClearAllPoints();
 			EA_Anchor_FrameA2:SetPoint("CENTER", EA_Anchor_FrameA1, xOffset, yOffset);
 			--
@@ -287,8 +289,6 @@ function EventAlert_Icon_Options_Frame_ResetFrame()
 		NextLineShowConfig.relativePoint = "CENTER";
 		NextLineShowConfig.xLoc = 0;
 		NextLineShowConfig.yLoc = -320;
-		NextLineShowConfig.xOffset = -40;
-		NextLineShowConfig.yOffset = 0;
 
 		EA_Position.Tar_NewLine = true;
 		EA_Position.TarAnchor = "CENTER";

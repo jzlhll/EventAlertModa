@@ -114,8 +114,6 @@ NextLineShowConfig = {
 				relativePoint,
 				xLoc,
 				yLoc,
-				xOffset,
-				yOffset,
 				};
 -----------------------------------------------------------------
 -----------------------------------------------------------------
@@ -368,8 +366,6 @@ function EventAlert_InitNextLineShowConfig()
 	if NextLineShowConfig.relativePoint == nil then NextLineShowConfig.relativePoint = "CENTER" end;
 	if NextLineShowConfig.xLoc == nil then NextLineShowConfig.xLoc = 0 end;
 	if NextLineShowConfig.yLoc == nil then NextLineShowConfig.yLoc = -320 end;
-	if NextLineShowConfig.xOffset == nil then NextLineShowConfig.xOffset = -40 end;
-	if NextLineShowConfig.yOffset == nil then NextLineShowConfig.yOffset = 0 end;
 end
 -----------------------------------------------------------------
 function EventAlert_InitArrayPosition()
@@ -1617,10 +1613,13 @@ function EventAlert_PositionFrames()
 	if (EA_Config.ShowFrame == true) then
 		EA_Main_Frame:ClearAllPoints();
 		EA_Main_Frame:SetPoint(EA_Position.Anchor, UIParent, EA_Position.relativePoint, EA_Position.xLoc, EA_Position.yLoc);
-		local prevFrame = "EA_Main_Frame";
-		local prevFrame2 = "EA_Main_Frame";
+		local prevFrame = "EA_Main_Frame"; -- 上一个buff frame
+		local prevFrame2 = "EA_Main_Frame"; --上一个debuff frame
+		local prevFrameNext = "EA_Main_Frame"; -- allan add 新显示frame
 		local xOffset = 100 + EA_Position.xOffset;
 		local yOffset = 0 + EA_Position.yOffset;
+		local nxLoc = 0 + NextLineShowConfig.xLoc;
+		local nyLoc = 0 + NextLineShowConfig.yLoc;
 		local SfontName, SfontSize = "", 0;
 
 		EA_CurrentBuffs = EAFun_SortCurrBuffs(1, EA_CurrentBuffs);
@@ -1635,56 +1634,52 @@ function EventAlert_PositionFrames()
 			--local gsiValue3 = EA_SPELLINFO_SELF[spellID].value3;
 			local gsiIcon = EA_SPELLINFO_SELF[spellID].icon;
 			local gsiIsDebuff = EA_SPELLINFO_SELF[spellID].isDebuff;
-      		local gsiIsNextLineShow = EA_SPELLINFO_SELF[spellID].nextLineShow;
+      		local gsiIsNextShow = EA_SPELLINFO_SELF[spellID].nextLineShow;
 
 			if eaf ~= nil then
 				eaf:ClearAllPoints();
 				if EA_Position.Tar_NewLine then
-					print("A1:"..EA_Position.Anchor)
-					print("A2:"..xOffset)
-					print("A3:"..yOffset)
-					if gsiIsDebuff then
-						print("isDebuff")
+					if gsiIsDebuff then -- Debuff & Tar_NewLine 一般的debuff所走
 						if (prevFrame2 == "EA_Main_Frame" or prevFrame2 == eaf) then
 							prevFrame2 = "EA_Main_Frame";
-							print("0000")
 							if EA_SpecFrame_Self then
-								print("1111")
 							    eaf:SetPoint(EA_Position.Anchor, prevFrame2, EA_Position.Anchor, -2 * xOffset, -2 * yOffset);
 							else
-								print("2222")
 								eaf:SetPoint(EA_Position.Anchor, prevFrame2, EA_Position.Anchor, -1 * xOffset, -1 * yOffset);
 							end
 						else
-							print("3333")
 							eaf:SetPoint("CENTER", prevFrame2, "CENTER", -1 * xOffset, -1 * yOffset);
 						end
 						prevFrame2 = eaf;
-					else
-						print("is Not Debuff")
-						if (prevFrame == "EA_Main_Frame" or prevFrame == eaf) then
-							prevFrame = "EA_Main_Frame";
-							print("44444")
-							eaf:SetPoint(EA_Position.Anchor, prevFrame, EA_Position.Anchor, 0, 0);
-						else
-							print("5555")
-							eaf:SetPoint("CENTER", prevFrame, "CENTER", xOffset, yOffset);
+					else -- Buffs
+						if gsiIsNextShow then -- allan add 新显示frame 大多数走
+							if (prevFrameNext == "EA_Main_Frame" or prevFrameNext == eaf) then
+								prevFrameNext = "EA_Main_Frame";
+								eaf:SetPoint("CENTER", UIParent, NextLineShowConfig.Anchor, nxLoc, nyLoc);
+							else
+								eaf:SetPoint("CENTER", prevFrameNext, "CENTER", xOffset, yOffset);
+							end
+							prevFrameNext = eaf;
+						else   -- 老显示frame
+							if (prevFrame == "EA_Main_Frame" or prevFrame == eaf) then
+								prevFrame = "EA_Main_Frame";
+								eaf:SetPoint(EA_Position.Anchor, prevFrame, EA_Position.Anchor, 0, 0);
+							else
+								eaf:SetPoint("CENTER", prevFrame, "CENTER", xOffset, yOffset);
+							end
+							prevFrame = eaf;
 						end
-						prevFrame = eaf;
 					end
-				else
-					print("is not Tar_NewLine")
+				else -- buff & !Tar_newLine 一般不走
 					if (prevFrame == "EA_Main_Frame" or prevFrame == eaf) then
-						print("666")
 						prevFrame = "EA_Main_Frame";
 						eaf:SetPoint(EA_Position.Anchor, prevFrame, EA_Position.Anchor, 0, 0);
 					else
-						print("777")
 						eaf:SetPoint("CENTER", prevFrame, "CENTER", xOffset, yOffset);
 					end
 					prevFrame = eaf;
 				end;
-
+				--- 完成 ---
 				eaf:SetWidth(EA_Config.IconSize);
 				eaf:SetHeight(EA_Config.IconSize);
 				--eaf:SetBackdrop({bgFile = gsiIcon});

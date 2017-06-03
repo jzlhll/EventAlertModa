@@ -40,7 +40,9 @@ function EventAlert_CreateFrames()
 		EA_Anchor_Frame9:SetPoint("CENTER", EA_Anchor_Frame1, 0, 80 + iLocOffset_Y);
 		EA_Anchor_Frame10:SetPoint("CENTER", EA_Anchor_Frame9, iLocOffset_X, iLocOffset_Y);
 	-- Self nextLineShow buffs/debuffs
-		EA_Anchor_FrameA1:SetPoint(NextLineShowConfig.Anchor, UIParent, NextLineShowConfig.xLoc, NextLineShowConfig.yLoc);
+		local nxLoc = 0 + NextLineShowConfig.xLoc;
+		local nyLoc = 0 + NextLineShowConfig.yLoc;
+		EA_Anchor_FrameA1:SetPoint(NextLineShowConfig.Anchor, UIParent, nxLoc, nyLoc);
 		EA_Anchor_FrameA2:SetPoint("CENTER", EA_Anchor_FrameA1, iLocOffset_X, iLocOffset_Y); -- follow EA_Position.xOffset yOffset
 	--
 		local EA_OptHeight = EA_Options_Frame:GetHeight();
