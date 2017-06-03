@@ -321,7 +321,7 @@
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_IconExecution" relativePoint="BOTTOMLEFT">
 						<Offset>
-							<AbsDimension x="-40" y="-15" />
+							<AbsDimension x="-85" y="-15" />
 						</Offset>
 					</Anchor>
 				</Anchors>

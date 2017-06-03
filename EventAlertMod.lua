@@ -1645,7 +1645,7 @@ function EventAlert_PositionFrames()
 			if eaf ~= nil then
 				eaf:ClearAllPoints();
 				if EA_Position.Tar_NewLine then
-					if gsiIsDebuff then -- Debuff & Tar_NewLine 一般的debuff所走
+					if gsiIsDebuff then
 						if (prevFrame2 == "EA_Main_Frame" or prevFrame2 == eaf) then
 							prevFrame2 = "EA_Main_Frame";
 							if EA_SpecFrame_Self then
@@ -1657,8 +1657,8 @@ function EventAlert_PositionFrames()
 							eaf:SetPoint("CENTER", prevFrame2, "CENTER", -1 * xOffset, -1 * yOffset);
 						end
 						prevFrame2 = eaf;
-					else -- Buffs
-						if gsiIsNextShow then -- allan add 新显示frame
+					else
+						if gsiIsNextShow then
 							if (prevFrameNext == "EA_Main_Frame" or prevFrameNext == eaf) then
 								prevFrameNext = "EA_Main_Frame";
 								eaf:SetPoint("CENTER", UIParent, NextLineShowConfig.Anchor, nxLoc, nyLoc);
@@ -1666,7 +1666,7 @@ function EventAlert_PositionFrames()
 								eaf:SetPoint("CENTER", prevFrameNext, "CENTER", nxoffset, nyoffset);
 							end
 							prevFrameNext = eaf;
-						else   -- 老显示frame
+						else
 							if (prevFrame == "EA_Main_Frame" or prevFrame == eaf) then
 								prevFrame = "EA_Main_Frame";
 								eaf:SetPoint(EA_Position.Anchor, prevFrame, EA_Position.Anchor, 0, 0);
@@ -1676,7 +1676,7 @@ function EventAlert_PositionFrames()
 							prevFrame = eaf;
 						end
 					end
-				else -- buff & !Tar_newLine 一般不走
+				else
 					if (prevFrame == "EA_Main_Frame" or prevFrame == eaf) then
 						prevFrame = "EA_Main_Frame";
 						eaf:SetPoint(EA_Position.Anchor, prevFrame, EA_Position.Anchor, 0, 0);
@@ -1697,7 +1697,7 @@ function EventAlert_PositionFrames()
 				if not eaf.texture then eaf.texture = eaf:CreateTexture() end
 				eaf.texture:SetAllPoints(eaf)
 				eaf.texture:SetTexture(gsiIcon)
-				
+
 				--TEST
 				--FrameAppendSpellTip(eaf,spellID)				
 				FrameAppendAuraTip(eaf,"player",spellID,gsiIsDebuff)				
@@ -1718,7 +1718,6 @@ function EventAlert_PositionFrames()
 					eaf.spellName:SetText(tmp);
 					SfontName, SfontSize = eaf.spellName:GetFont();
 					if gsiIsNextShow then
-						print("comapre ratio "..NextLineShowConfig.CompareEAConfigSizeRatio)
 						eaf.spellName:SetFont(SfontName, EA_Config.SNameFontSize * NextLineShowConfig.CompareEAConfigSizeRatio / 100);
 					else
 						eaf.spellName:SetFont(SfontName, EA_Config.SNameFontSize);
