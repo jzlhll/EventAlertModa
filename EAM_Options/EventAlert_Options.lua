@@ -17,7 +17,7 @@ end
 
 function EventAlert_Options_Init()
 	EA_Options_Frame_Header_Text:SetFontObject(GameFontNormal);
-	EA_Options_Frame_Header_Text:SetText("EventAlertMod Options");
+	EA_Options_Frame_Header_Text:SetText(EA_EAM_OPT_TITLE);
 	EA_Options_Frame_VerUrlText:SetText(EA_XOPT_VERURLTEXT);
 
 	EA_Options_Frame_DoAlertSound:SetChecked(EA_Config.DoAlertSound);

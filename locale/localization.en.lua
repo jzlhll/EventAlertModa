@@ -3,6 +3,7 @@ local _
 local _G = _G
 if GetLocale() == "enUS" then
 
+EA_EAM_OPT_TITLE="EventAlertMod Options (A)";
 EA_TTIP_DOALERTSOUND = "Play a sound when an event triggers.";
 EA_TTIP_ALERTSOUNDSELECT = "Choose which sound to play when an event triggers.";
 EA_TTIP_LOCKFRAME = "Locks the notification frame so it cannot be moved.";
@@ -93,6 +94,7 @@ EA_XICON_LOCKFRAME = "Lock Frame";
 EA_XICON_LOCKFRAMETIP = "You must unlock the alert frame in order to move it or reset it's position.";
 EA_XICON_SHARESETTING = "Share alert frame positions";
 EA_XICON_ICONSIZE = "Icon Size";
+EA_XICON_NEXTLINE_ICONSIZE = "NextLine Icon Size";
 -- EA_XICON_ICONSIZE2 = "Target Icon Size";
 -- EA_XICON_ICONSIZE3 = "Cooldown Icon Size";
 EA_XICON_LARGE = "Large";

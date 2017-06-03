@@ -4,7 +4,7 @@ local _G = _G
 
 if GetLocale() == "zhTW" then 
 
-
+EA_EAM_OPT_TITLE="技能特效報警(A)";
 EA_TTIP_DOALERTSOUND = "事件發生時是否播放音效.";
 EA_TTIP_ALERTSOUNDSELECT = "選擇事件發生時所播放的音效.";
 EA_TTIP_LOCKFRAME = "鎖定提示框架，避免被滑鼠拖拉移動.";
@@ -95,6 +95,7 @@ EA_XICON_LOCKFRAME = "鎖定範例框架";
 EA_XICON_LOCKFRAMETIP = "若要移動『提示框架』或『重設框架位置』時，請將『鎖定範例框架』的打勾取消";
 EA_XICON_SHARESETTING = "共用框架位置設定";
 EA_XICON_ICONSIZE = "圖示大小";
+EA_XICON_NEXTLINE_ICONSIZE = "跨行圖示大小";
 -- EA_XICON_ICONSIZE2 = "目標圖示大小";
 -- EA_XICON_ICONSIZE3 = "CD圖示大小";
 EA_XICON_LARGE = "大";

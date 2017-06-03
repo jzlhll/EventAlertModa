@@ -11,6 +11,7 @@ function EventAlert_Icon_Options_Frame_Init()
 	EA_Icon_Options_Frame_LockFrame:SetChecked(EA_Config.LockFrame);
 	EA_Icon_Options_Frame_ShareSettings:SetChecked(EA_Config.ShareSettings);
 	EA_Icon_Options_Frame_IconSize:SetValue(EA_Config.IconSize);
+	EA_Icon_Options_Frame_NextLineIconSize:SetValue(NextLineShowConfig.IconSize);
 	EA_Icon_Options_Frame_IconXOffset:SetValue(EA_Position.xOffset);
 	EA_Icon_Options_Frame_IconYOffset:SetValue(EA_Position.yOffset);
 	EA_Icon_Options_Frame_IconRedDebuff:SetValue((EA_Position.RedDebuff * 100) - 50);
@@ -260,12 +261,19 @@ end
 
 
 function EventAlert_Icon_Options_Frame_AdjustTimerFontSize()
-    EventAlert_AdjustFontSizeWithIconSize()
+        NextLineShowConfig.CompareEAConfigSizeRatio = NextLineShowConfig.IconSize * 100 / EA_Config.IconSize;
+	EventAlert_AdjustFontSizeWithIconSize()
 
 	EventAlert_PositionFrames();
 	EventAlert_TarPositionFrames();
 	EventAlert_ScdPositionFrames();
 	EventAlert_SpecialFrame_Update()
+end
+
+function EventAlert_Icon_Options_Frame_AdjustNextLineTimerFontSize()
+	NextLineShowConfig.CompareEAConfigSizeRatio = NextLineShowConfig.IconSize * 100 / EA_Config.IconSize;
+
+	EventAlert_PositionFrames();
 end
 
 function EventAlert_Icon_Options_Frame_ResetFrame()
@@ -289,6 +297,9 @@ function EventAlert_Icon_Options_Frame_ResetFrame()
 		NextLineShowConfig.relativePoint = "CENTER";
 		NextLineShowConfig.xLoc = 0;
 		NextLineShowConfig.yLoc = -320;
+		NextLineShowConfig.IconSize = 36;
+		NextLineShowConfig.CompareEAConfigSizeRatio = 1.0;
+		EA_Icon_Options_Frame_NextLineIconSize:SetValue(NextLineShowConfig.IconSize);
 
 		EA_Position.Tar_NewLine = true;
 		EA_Position.TarAnchor = "CENTER";

@@ -114,6 +114,8 @@ NextLineShowConfig = {
 				relativePoint,
 				xLoc,
 				yLoc,
+				IconSize,
+				CompareEAConfigSizeRatio,
 				};
 -----------------------------------------------------------------
 -----------------------------------------------------------------
@@ -366,6 +368,8 @@ function EventAlert_InitNextLineShowConfig()
 	if NextLineShowConfig.relativePoint == nil then NextLineShowConfig.relativePoint = "CENTER" end;
 	if NextLineShowConfig.xLoc == nil then NextLineShowConfig.xLoc = 0 end;
 	if NextLineShowConfig.yLoc == nil then NextLineShowConfig.yLoc = -320 end;
+	if NextLineShowConfig.IconSize == nil then NextLineShowConfig.IconSize = 36 end;
+	if NextLineShowConfig.CompareEAConfigSizeRatio == nil then NextLineShowConfig.CompareEAConfigSizeRatio = 1.0 end;
 end
 -----------------------------------------------------------------
 function EventAlert_InitArrayPosition()
@@ -1618,6 +1622,8 @@ function EventAlert_PositionFrames()
 		local prevFrameNext = "EA_Main_Frame"; -- allan add 新显示frame
 		local xOffset = 100 + EA_Position.xOffset;
 		local yOffset = 0 + EA_Position.yOffset;
+		local nxoffset = xOffset * NextLineShowConfig.CompareEAConfigSizeRatio / 100;
+		local nyoffset = yOffset * NextLineShowConfig.CompareEAConfigSizeRatio / 100;
 		local nxLoc = 0 + NextLineShowConfig.xLoc;
 		local nyLoc = 0 + NextLineShowConfig.yLoc;
 		local SfontName, SfontSize = "", 0;
@@ -1652,12 +1658,12 @@ function EventAlert_PositionFrames()
 						end
 						prevFrame2 = eaf;
 					else -- Buffs
-						if gsiIsNextShow then -- allan add 新显示frame 大多数走
+						if gsiIsNextShow then -- allan add 新显示frame
 							if (prevFrameNext == "EA_Main_Frame" or prevFrameNext == eaf) then
 								prevFrameNext = "EA_Main_Frame";
 								eaf:SetPoint("CENTER", UIParent, NextLineShowConfig.Anchor, nxLoc, nyLoc);
 							else
-								eaf:SetPoint("CENTER", prevFrameNext, "CENTER", xOffset, yOffset);
+								eaf:SetPoint("CENTER", prevFrameNext, "CENTER", nxoffset, nyoffset);
 							end
 							prevFrameNext = eaf;
 						else   -- 老显示frame
@@ -1679,9 +1685,13 @@ function EventAlert_PositionFrames()
 					end
 					prevFrame = eaf;
 				end;
-				--- 完成 ---
-				eaf:SetWidth(EA_Config.IconSize);
-				eaf:SetHeight(EA_Config.IconSize);
+				if gsiIsNextShow then
+					eaf:SetWidth(NextLineShowConfig.IconSize);
+					eaf:SetHeight(NextLineShowConfig.IconSize);
+				else
+					eaf:SetWidth(EA_Config.IconSize);
+					eaf:SetHeight(EA_Config.IconSize);
+				end
 				--eaf:SetBackdrop({bgFile = gsiIcon});
 				--for 7.0
 				if not eaf.texture then eaf.texture = eaf:CreateTexture() end
@@ -1693,7 +1703,6 @@ function EventAlert_PositionFrames()
 				FrameAppendAuraTip(eaf,"player",spellID,gsiIsDebuff)				
 				FrameAppendAuraTip(eaf,"pet",spellID,gsiIsDebuff)				
 
-				 
 				if gsiIsDebuff then eaf:SetBackdropColor(1.0, EA_Position.RedDebuff, EA_Position.RedDebuff) end;
 				if (EA_Config.ShowName == true) then
 					local tmp = gsiName
@@ -1708,11 +1717,20 @@ function EventAlert_PositionFrames()
 				
 					eaf.spellName:SetText(tmp);
 					SfontName, SfontSize = eaf.spellName:GetFont();
-					eaf.spellName:SetFont(SfontName, EA_Config.SNameFontSize);
+					if gsiIsNextShow then
+						print("comapre ratio "..NextLineShowConfig.CompareEAConfigSizeRatio)
+						eaf.spellName:SetFont(SfontName, EA_Config.SNameFontSize * NextLineShowConfig.CompareEAConfigSizeRatio / 100);
+					else
+						eaf.spellName:SetFont(SfontName, EA_Config.SNameFontSize);
+					end
 				else
 					eaf.spellName:SetText("");
 				end
-				eaf.spellTimer:SetFont("Fonts\\FRIZQT__.TTF", EA_Config.TimerFontSize, "OUTLINE");
+				if gsiIsNextShow then
+					eaf.spellTimer:SetFont("Fonts\\FRIZQT__.TTF", EA_Config.TimerFontSize * NextLineShowConfig.CompareEAConfigSizeRatio / 100, "OUTLINE");
+				else
+					eaf.spellTimer:SetFont("Fonts\\FRIZQT__.TTF", EA_Config.TimerFontSize, "OUTLINE");
+				end
 				eaf.spellStack:SetFont("Fonts\\FRIZQT__.TTF", EA_Config.StackFontSize, "OUTLINE");
 				eaf:SetScript("OnUpdate", function()
 					EventAlert_OnUpdate(spellID)

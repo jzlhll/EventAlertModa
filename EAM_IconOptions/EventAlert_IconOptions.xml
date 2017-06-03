@@ -76,11 +76,12 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
+			<!-- old Size -->
 			<Slider name="$parent_IconSize" inherits="OptionsSliderTemplate">
 				<Anchors>
 					<Anchor point="TOP" relativeTo="$parent_LockFrame" relativePoint="BOTTOMLEFT">
 						<Offset>
-							<AbsDimension x="100" y="-10" />
+							<AbsDimension x="40" y="-10" />
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -107,11 +108,43 @@
 					</OnLeave>
 				</Scripts>
 			</Slider>
+			<!-- nextline Size -->
+			<Slider name="$parent_NextLineIconSize" inherits="OptionsSliderTemplate">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="$parent_LockFrame" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="210" y="-10" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText(EA_XICON_NEXTLINE_ICONSIZE.."(60)");
+						_G[self:GetName().."High"]:SetText(EA_XICON_LARGE.."(90)");
+						_G[self:GetName().."Low"]:SetText(EA_XICON_SMALL.."(30)");
+						self:SetMinMaxValues(30.0,90.0);
+						self:SetValueStep(5.0);
+					</OnLoad>
+					<OnValueChanged>
+						NextLineShowConfig.IconSize = floor(self:GetValue())
+						_G[self:GetName().."Text"]:SetText(EA_XICON_NEXTLINE_ICONSIZE.."("..NextLineShowConfig.IconSize..")");
+						EventAlert_Icon_Options_Frame_AdjustNextLineTimerFontSize();
+						EventAlert_Icon_Options_Frame_PaintAlertFrame();
+					</OnValueChanged>
+					<OnEnter>
+						GameTooltip:SetOwner(self, "ANCHOR_CENTER");
+						GameTooltip:SetText(EA_TTIP_ICONSIZE);
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Slider>
 			<Slider name="$parent_IconXOffset" inherits="OptionsSliderTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_IconSize" relativePoint="BOTTOMLEFT">
 						<Offset>
-							<AbsDimension x="0" y="-30" />
+							<AbsDimension x="90" y="-30" />
 						</Offset>
 					</Anchor>
 				</Anchors>
