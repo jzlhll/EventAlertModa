@@ -1229,6 +1229,7 @@ local function EACFFun_EventsFrame_DelSpell(FrameIndex, spellID, EAItems, FrameN
 	end
 	-- Check if is a spell in current list
 	if (IsCurrSpell) then
+        EA_Deleted = EA_Deleted or {} EA_Deleted[spellID] = 1
 		CreateFrames_EventsFrame_ClearSpellList(FrameIndex);
 		if (FrameIndex == 1) then
 			EA_Items[EA_playerClass] = TempPlayerClass;
