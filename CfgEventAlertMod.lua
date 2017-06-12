@@ -88,7 +88,7 @@ U1RegisterAddon("EventAlertMod", {
         text = "重置所有设置为默认",
         confirm = "|cffff0000设置将无法恢复！|r\n包括框体位置、自定义法术ID等！\n一般仅在大版本更新后用！\n确认重置并自动重载界面？",
         callback = function()
-            EA_Config,EA_Position,EA_Items,EA_AltItems,EA_TarItems,EA_ScdItems,EA_GrpItems,EA_Pos = nil
+            EA_Config,EA_Position,EA_Items,EA_AltItems,EA_TarItems,EA_ScdItems,EA_GrpItems,EA_Pos,EA_Deleted = nil
             ReloadUI()
         end
     },

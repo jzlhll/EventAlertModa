@@ -249,7 +249,7 @@ function EventAlert_ADDON_LOADED(self, event, ...)
             local my = _G["EA_".. p .."Items"][cls]
             for id, set in next,def do
                 local sname = GetSpellInfo(id)
-                if sname and set.enable and not my[id] then
+                if sname and set.enable and not my[id] and not (EA_Deleted and EA_Deleted[id]) then
                     U1Message("发现新的报警法术 |cff00ff00" .. id .. " - " .. sname .. "|r, 已添加")
                     my[id] = set
                 end

@@ -10,7 +10,7 @@
 ## Notes-enTW: To notice or warning the specific Spells/Skills in large icon for the player. Command: /eam opt. By |cff69ccf0ACDACD@TW-REALM|r
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
-## SavedVariables: EA_Config,EA_Position,EA_Items,EA_AltItems,EA_TarItems,EA_ScdItems,EA_GrpItems,EA_Pos
+## SavedVariables: EA_Config,EA_Position,EA_Items,EA_AltItems,EA_TarItems,EA_ScdItems,EA_GrpItems,EA_Pos,EA_Deleted
 
 libs\ActionButton\EventAlert_ActionBarButtonSpellActivationAlert.xml
 libs\ActionButton\EventAlert_ActionButtonOverlayGlow.lua
@@ -38,4 +38,4 @@ EAM_GroupAlerts\EventAlert_GroupAlerts.xml
 ## X-Vendor: NetEase
 
 
-## X-163UI-Version: 20170330001839
+## X-163UI-Version: 20170604023433
