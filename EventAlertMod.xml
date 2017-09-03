@@ -48,7 +48,7 @@
 				</Anchors>
 				<Scripts>
 					<OnClick>
-					PlaySound("gsTitleOptionOK");
+					PlaySound163("gsTitleOptionOK");
 					HideUIPanel(EA_Version_Frame);
 				</OnClick>
 				</Scripts>
