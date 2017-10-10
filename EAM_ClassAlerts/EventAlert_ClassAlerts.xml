@@ -100,7 +100,7 @@
 					</Anchor>
 				</Anchors>
 				<Size>
-					<AbsDimension x="75" y="25"/>
+					<AbsDimension x="60" y="25"/>
 				</Size>
 				<Scripts>
 					<OnLoad>
@@ -120,7 +120,7 @@
 					</Anchor>
 				</Anchors>
 				<Size>
-					<AbsDimension x="75" y="25"/>
+					<AbsDimension x="60" y="25"/>
 				</Size>
 				<Scripts>
 					<OnLoad>
@@ -140,7 +140,7 @@
 					</Anchor>
 				</Anchors>
 				<Size>
-					<AbsDimension x="75" y="25"/>
+					<AbsDimension x="60" y="25"/>
 				</Size>
 				<Scripts>
 					<OnLoad>
@@ -160,7 +160,7 @@
 					</Anchor>
 				</Anchors>
 				<Size>
-					<AbsDimension x="75" y="25"/>
+					<AbsDimension x="60" y="25"/>
 				</Size>
 				<Scripts>
 					<OnLoad>
@@ -171,7 +171,26 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-
+			<Button name="$parent_ShowNextLineAll" inherits="OptionsButtonTemplate" text="">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parent_RemoveAll" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Size>
+					<AbsDimension x="60" y="25"/>
+				</Size>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_SHOWNEXTALL);
+					</OnLoad>
+					<OnClick>
+						CreateFrames_EventsFrame_ShowAllNextLine(1)
+					</OnClick>
+				</Scripts>
+			</Button>
 			<ScrollFrame name="$parent_SpellScrollFrame" inherits="UIPanelScrollFrameTemplate">
 				<Size>
 				    <AbsDimension x="280" y="300"/>

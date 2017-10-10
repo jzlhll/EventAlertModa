@@ -1156,7 +1156,59 @@ function CreateFrames_EventsFrame_SelAll(FrameIndex, Status)
 		EACFFun_EventsFrame_SelAll(EA_GrpItems[EA_playerClass], "EA_GroupFrame_ChkBtn_", Status);
 	end
 end
-
+--------------------------------------------------------------------------------
+-- Show/Hide All NextLine Buffs
+--------------------------------------------------------------------------------
+local function EACFFun_EventsFrame_ShowAllNextLine(EAItems, FrameName, show)
+	if show == 0 then
+		for index, value in pairsByKeys(EAItems) do
+			index = tonumber(index);
+			local f2 = _G[FrameName..index];
+			if f2 then
+				f2:Show()
+			end
+		end
+	elseif show == 1 then
+		for index, value in pairsByKeys(EAItems) do
+			local isshow = value.nextLineShow
+			index = tonumber(index);
+			local f2 = _G[FrameName..index];
+			if f2 then
+				if isshow then
+					f2:Show()
+				else
+					f2:Hide()
+				end
+			end
+		end	
+	elseif show == 2 then
+		for index, value in pairsByKeys(EAItems) do
+			local isshow = value.nextLineShow
+			index = tonumber(index);
+			local f2 = _G[FrameName..index];
+			if f2 then
+				if isshow then
+					f2:Hide()
+				else
+					f2:Show()
+				end
+			end
+		end	
+	end
+end
+function CreateFrames_EventsFrame_ShowAllNextLine(FrameIndex)
+	if (FrameIndex == 1) then
+		if NextLineShowConfig.NextLineShowFrameIn1 == nil then NextLineShowConfig.NextLineShowFrameIn1 = 0 end
+		local show = 0
+		if NextLineShowConfig.NextLineShowFrameIn1 == 0 then
+			show = 1
+		elseif NextLineShowConfig.NextLineShowFrameIn1 == 1 then
+			show = 2
+		end
+		NextLineShowConfig.NextLineShowFrameIn1 = show
+		EACFFun_EventsFrame_ShowAllNextLine(EA_Items[EA_playerClass], "EA_ClassFrame_ChkBtn_", show);
+	end
+end
 --------------------------------------------------------------------------------
 function CreateFrames_EventsFrame_LoadDefault(FrameIndex)
 	CreateFrames_EventsFrame_ClearSpellList(FrameIndex);
